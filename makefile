@@ -1,7 +1,7 @@
 .PHONY=all run clean
 
 #custom parameters
-EXECUTABLE:=glfw
+EXECUTABLE:=knoxh
 EXTENSION:=.exe
 BUILD_DIR:=build
 
