@@ -5,6 +5,8 @@
 //glfw libs
 #include <GLFW/glfw3.h>
 
+#include "core/window.h"
+
 static void error_callback(int, const char*);
 
 int main()
@@ -18,7 +20,18 @@ int main()
 		return -1;
 	}
 
-	window = glfwCreateWindow(1280, 720, "GLFW Template", NULL, NULL);
+	int hints[] = {
+		GLFW_CONTEXT_VERSION_MAJOR, 4,
+		GLFW_CONTEXT_VERSION_MINOR, 3,
+		GLFW_SAMPLES, 8,
+		GLFW_RESIZABLE, GLFW_FALSE
+	};
+
+	knoxh::Window win(1280, 720);
+	//win.setHints(hints);
+	win.createWindow(hints, sizeof(hints)/sizeof(hints[0]));
+
+	window = win.getWindow();
 
 	glfwMakeContextCurrent(window);
 
@@ -27,6 +40,8 @@ int main()
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
+
+	delete &win;
 
 	glfwTerminate();
 
