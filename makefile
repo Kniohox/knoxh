@@ -11,8 +11,8 @@ INCLUDE_FOLDERS:=-Iinclude -Isrc
 LIB_FOLDER:=-Llib
 LIB:=-lglfw3 -lopengl32 -lgdi32
 
-DEPENDENCIES:=template.o window.o
-HEADERS:=window.h
+DEPENDENCIES:=template.o window.o util.o
+HEADERS:=window.h util.h
 
 VPATH=build:src:src/core
 
@@ -26,7 +26,8 @@ build: ${DEPENDENCIES} ${HEADERS}
 	$(foreach file,$?, g++ -c ${file} -o ${BUILD_DIR}/$@ ${FLAGS} ${INCLUDE_FOLDERS})
 
 run:
-	${BUILD_DIR}/${EXECUTABLE}${EXTENSION}
+	-@${BUILD_DIR}/${EXECUTABLE}${EXTENSION}
+	@echo --Ignore the error, it only happens when running the executable using make run--
 
 clean:
 	DEL /Q ${BUILD_DIR}\\*.*

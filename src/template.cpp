@@ -6,14 +6,15 @@
 #include <GLFW/glfw3.h>
 
 #include "core/window.h"
+#include "core/util.h"
 
-static void error_callback(int, const char*);
+#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
 
 int main()
 {
 	GLFWwindow* window;
 
-	glfwSetErrorCallback(error_callback);
+	glfwSetErrorCallback(knoxh::error_callback);
 
 	if (!glfwInit())
 	{
@@ -21,15 +22,23 @@ int main()
 	}
 
 	int hints[] = {
+		//basic opengl info, can't be changed after opengl context creation
 		GLFW_CONTEXT_VERSION_MAJOR, 4,
 		GLFW_CONTEXT_VERSION_MINOR, 3,
-		GLFW_SAMPLES, 8,
-		GLFW_RESIZABLE, GLFW_FALSE
+		GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE, //forward compatability removes use of depreciated methods
+		GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE, //compatability or core, compatability enables use of depreciated methods
+
+		//window properties, can't be changed after window creation
+		GLFW_RESIZABLE, GLFW_FALSE,
+
+		//framebuffer properties, can't be changed after window creation
+		GLFW_SAMPLES, 8, //0 disables multisampling
+		GLFW_REFRESH_RATE, 0 //only applies to fullscreen, 0 says to use highest refresh rate available (monitor native refresh rate)
 	};
 
 	knoxh::Window win(1280, 720);
 	//win.setHints(hints);
-	win.createWindow(hints, sizeof(hints)/sizeof(hints[0]));
+	win.createWindow(win.DEFAULT_HINTS, ARRAYSIZE(hints));
 
 	window = win.getWindow();
 
@@ -46,10 +55,4 @@ int main()
 	glfwTerminate();
 
 	return 0;
-}
-
-static void error_callback(int error, const char* description)
-{
-    fputs(description, stderr);
-    _fgetchar();
 }
