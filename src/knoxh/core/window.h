@@ -1,5 +1,4 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#pragma once
 
 #include <GLFW/glfw3.h>
 #include <string>
@@ -14,14 +13,24 @@ namespace knoxh
 		int height;
 		std::string title;
 	public:
-		Window(int width, int height);
+		Window(const int width, const int height);
 		/*
 		Window constructor, sets with and height
 		*/
 
+		Window(const int width, const int height, std::string title);
+		/*
+		Window constructor, sets width, height, and title
+		*/
+
+		void createWindow();
+		/*
+		Creates GLFW window with default hints`
+		*/
+
 		void createWindow(const int hints[], const int hint_count);
 		/*
-		Creates GLFW window with chosen window hings
+		Creates GLFW window with chosen window hints
 		*/
 
 		GLFWwindow* getWindow();
@@ -29,14 +38,29 @@ namespace knoxh
 		temporary method to return GLFWwindow pointer
 		*/
 
-		~Window();
+		void makeCurrent();
 		/*
-		Window deconstructor
+		calls glfwMakeContextCurrent(window);
 		*/
 
-		void printTitle();
+		void swapBuffers();
 		/*
-		test method, to be removed
+		calls glfwSwapBuffers(window);
+		*/
+
+		int shouldClose();
+		/*
+		returns glfwWindowShouldClose(window);
+		*/
+
+		void shouldClose(const int value);
+		/*
+		sets the should close property for the window
+		*/
+
+		~Window();
+		/*
+		Window deconstructor, deletes GLFWwindow window
 		*/
 
 		static constexpr int DEFAULT_HINTS[] = {
@@ -59,5 +83,3 @@ namespace knoxh
 	};
 
 }
-
-#endif

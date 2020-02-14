@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "core/util.h"
+#include <knoxh/util/funclib.h>
 
 namespace knoxh
 {
