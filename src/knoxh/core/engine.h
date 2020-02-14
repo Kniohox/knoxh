@@ -14,7 +14,7 @@ namespace knoxh
 	{
 	private:
 		Window* window;
-		//Window if client is run
+		//Window to be used
 		Registry* textureReg;
 		//registry for textures
 		Registry* modelReg;

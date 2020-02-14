@@ -13,6 +13,7 @@ namespace knoxh
 		this->size = size;
 		this-> pushIndex = 0;
 		this->popIndex = 0;
+		this->full = false;
 	}
 
 	int Queue::getSize()
@@ -128,6 +129,16 @@ namespace knoxh
 		this->data = narr;
 
 		this->size+=change;
+		this->popIndex = 0;
+		this->full = false;
+	}
+
+	void Queue::reset(const int size)
+	{
+		delete[] this->data;
+		this->data = new int[size];
+		this->size = size;
+		this->pushIndex = 0;
 		this->popIndex = 0;
 		this->full = false;
 	}

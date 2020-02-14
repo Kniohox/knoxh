@@ -78,7 +78,7 @@ namespace knoxh
 			GLFW_REFRESH_RATE, 0 //only applies to fullscreen, 0 says to use highest refresh rate available (monitor native refresh rate)
 		};
 		/*
-		default hints to be used if none are given or if there as a simple standard for most openGL features to be available
+		default hints to be used if none are given
 		*/
 	};
 

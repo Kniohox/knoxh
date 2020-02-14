@@ -57,7 +57,7 @@ namespace knoxh
 
 		bool isFull();
 		/*
-		returns if the queue is isFull
+		returns if the queue is full
 		*/
 
 		bool push(const int item);
@@ -75,6 +75,11 @@ namespace knoxh
 		/*
 		increase queue size by changes
 		performace for this functions suffers as queue order has to be maintained
+		*/
+
+		void reset(const int size);
+		/*
+		clears the queue and sets the size
 		*/
 
 	};
