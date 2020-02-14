@@ -1,3 +1,8 @@
-GLFW template
-windows 64 bit libs and include
-mingw64 bit
+very WIP, do not use
+almost all features are not yet implemented
+header files are documented
+
+samples on using the engine will be added as it reaches a finished state
+
+currently the the makefile only compiles for windows using g++
+the GLFW library files are for 64 bit windows
