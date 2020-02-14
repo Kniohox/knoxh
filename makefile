@@ -1,4 +1,4 @@
-.PHONY=all run clean
+.PHONY=all run clean install
 
 #custom parameters
 EXECUTABLE:=knoxh
@@ -21,7 +21,7 @@ DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o
 HEADERS:=window.h funclib.h engine.h registry.h queue.h
 
 #each folder containing files needs to be here
-VPATH=build:src:src/knoxh/core:src/knoxh/util
+VPATH=build:src:src/knoxh/core:src/knoxh/util:src/knoxh/graphics
 
 #lists available options
 all:

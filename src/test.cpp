@@ -30,31 +30,7 @@ int main()
 	knoxh::Registry reg(8);
 	knoxh::Window* windows[reg.getSize()];
 
-	knoxh::Engine engine;
-
-	//queue functionality test
-	knoxh::Queue queue(4);
-
-	queue.push(1);
-	queue.push(2);
-	queue.push(3);
-	queue.push(4);
-	queue.push(5); //doesn't get added as queue is full
-	queue.pop();
-	queue.pop();
-	queue.push(6);
-	queue.push(7);
-	queue.expand(1);
-	queue.push(8);
-
-	int* q;
-	int s;
-
-	queue.getQueue(q, s);
-	std::cout << std::endl;
-	printArray(q, s);
-	std::cout << "Queue is working as expected if numbers are in order" << std::endl << std::endl;
-	//end of queue test
+	knoxh::Engine engine(1024, 8, 256, 32);
 
 	glfwSetErrorCallback(knoxh::error_callback);
 
