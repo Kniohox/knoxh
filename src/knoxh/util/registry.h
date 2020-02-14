@@ -2,6 +2,9 @@
 
 namespace knoxh
 {
+	/*
+	class for id-ing items in an array
+	*/
 	class Registry
 	{
 	private:

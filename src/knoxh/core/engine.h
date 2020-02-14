@@ -7,27 +7,25 @@
 
 namespace knoxh
 {
+	/*
+	class for managing resources
+	*/
 	class Engine
 	{
 	private:
 		Window* window;
+		//Window if client is run
 		Registry* textureReg;
+		//registry for textures
 		Registry* modelReg;
+		//registry for models
 		Registry* shaderReg;
-		int mode;
+		//registry for shaders
 
 	public:
 		~Engine();
-		Engine(const int mode);
 
-		static const int CLIENT = 0;
-		//glfw window
-		static const int SERVER = 1;
-		//no glfw window, no render function called
+		Engine();
 
-		static const int LIMITED_TICK_RATE = 0;
-		//capped tick rate
-		static const int UNLIMITED_TICK_RATE = 2;
-		//no cap on tick rate
 	};
 }
