@@ -13,19 +13,19 @@ INCLUDE_FOLDERS:=-Iinclude -Isrc
 #lib folder
 LIB_FOLDER:=-Llib
 #libs to require
-LIB:=-lglfw3 -lopengl32 -lgdi32
+LIB:=-lglew32 -lglfw3 -lopengl32 -lgdi32
 
 #cpp file to be compiled
-DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o
+DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o
 #headers to be added as dependencies so changes to them cause the build to become outdated
-HEADERS:=window.h funclib.h engine.h registry.h queue.h
+HEADERS:=window.h funclib.h engine.h registry.h queue.h texture.h
 
 #each folder containing files needs to be here
 VPATH=build:src:src/knoxh/core:src/knoxh/util:src/knoxh/graphics
 
 #lists available options
 all:
-	@echo "build, run, clean"
+	@echo build, run, clean
 
 #assimilating binary files and linking libraries
 build: ${DEPENDENCIES} ${HEADERS}
@@ -41,7 +41,8 @@ install:
 
 #running output file, for some reason a make error is always thrown even if there is no problem with the executable
 run:
-	-@${BUILD_DIR}/${EXECUTABLE}${EXTENSION}
+	@echo.
+	@cd ${BUILD_DIR} && ${EXECUTABLE}${EXTENSION}
 
 #deletes all files in build directory
 clean:

@@ -1,9 +1,15 @@
 
 //standard c++ libs
 #include <iostream>
+#include <filesystem>
 
-//glfw libs
+//glfw and openGL libs
+#ifndef GLEW_STATIC
+#define GLEW_STATIC
+#endif
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 
 //knoxh engine libs
 #include <knoxh/core/window.h>
@@ -13,7 +19,9 @@
 #include <knoxh/util/funclib.h>
 #include <knoxh/util/queue.h>
 
-#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
+#include <knoxh/graphics/texture.h>
+
+//#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
 
 void printArray(int* array, int size)
 {
@@ -25,10 +33,26 @@ void printArray(int* array, int size)
 	std::cout << " ]" << std::endl;
 }
 
+void GLAPIENTRY
+MessageCallback( GLenum source,
+                 GLenum type,
+                 GLuint id,
+                 GLenum severity,
+                 GLsizei length,
+                 const GLchar* message,
+                 const void* userParam )
+{
+  fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, severity, message );
+}
+
 int main()
 {
 	knoxh::Registry reg(8);
 	knoxh::Window* windows[reg.getSize()];
+
+	std::cout << GL_R8 << ", " << GL_RG8 << ", " << GL_RGB8 << ", " << GL_RGBA8 << std::endl;
 
 	knoxh::Engine engine(1024, 8, 256, 32);
 
@@ -43,6 +67,29 @@ int main()
 	win.createWindow();
 
 	win.makeCurrent();
+
+	GLenum err = glewInit();
+	if (err != GLEW_OK)
+	{
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}
+
+	std::cout << glGetString(GL_VERSION) << std::endl;
+
+	// During init, enable debug output
+	glEnable              ( GL_DEBUG_OUTPUT );
+	glDebugMessageCallback( MessageCallback, 0 );
+
+	knoxh::Texture t(knoxh::loadImage("res/coin.png"));
+
+	//this causes a crash
+	//delete &t;
+
+	//this doesn't
+	//same code but not in a deconstructor
+	//???
+	unsigned int id = t.id;
+	glDeleteTextures(1, &id);
 
 	while (!win.shouldClose())
 	{

@@ -5,6 +5,8 @@
 #include <knoxh/util/registry.h>
 #include <knoxh/util/queue.h>
 
+#include <knoxh/graphics/texture.h>
+
 namespace knoxh
 {
 	/*
@@ -20,7 +22,7 @@ namespace knoxh
 		//registry for textures
 		Queue* textureQueue;
 		//queue for textures;
-		/*Texture** textures;*/
+		Texture** textures;
 		//texture array
 		int textureCap;
 		//size of texture array
