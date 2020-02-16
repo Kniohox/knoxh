@@ -16,7 +16,6 @@ namespace knoxh
 {
 	Texture::~Texture()
 	{
-		std::cout << "Deleting OpenGL texture with id " << this->id << std::endl;
 		glDeleteTextures(1, &this->id);
 	}
 

@@ -80,16 +80,9 @@ int main()
 	glEnable              ( GL_DEBUG_OUTPUT );
 	glDebugMessageCallback( MessageCallback, 0 );
 
-	knoxh::Texture t(knoxh::loadImage("res/coin.png"));
+	knoxh::Texture* t = new knoxh::Texture(knoxh::loadImage("res/coin.png"));
 
-	//this causes a crash
-	//delete &t;
-
-	//this doesn't
-	//same code but not in a deconstructor
-	//???
-	unsigned int id = t.id;
-	glDeleteTextures(1, &id);
+	delete t;
 
 	while (!win.shouldClose())
 	{
