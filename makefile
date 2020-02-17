@@ -15,7 +15,7 @@ LIB_FOLDER:=-Llib
 #libs to require
 LIB:=-lglew32 -lglfw3 -lopengl32 -lgdi32
 
-#cpp file to be compiled
+#cpp files to be compiled
 DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o
 #headers to be added as dependencies so changes to them cause the build to become outdated
 HEADERS:=window.h funclib.h engine.h registry.h queue.h texture.h

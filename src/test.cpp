@@ -21,8 +21,6 @@
 
 #include <knoxh/graphics/texture.h>
 
-//#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
-
 void printArray(int* array, int size)
 {
 	std::cout << "[ " << array[0];
@@ -33,6 +31,7 @@ void printArray(int* array, int size)
 	std::cout << " ]" << std::endl;
 }
 
+//temporary method
 void GLAPIENTRY
 MessageCallback( GLenum source,
                  GLenum type,
@@ -52,8 +51,6 @@ int main()
 	knoxh::Registry reg(8);
 	knoxh::Window* windows[reg.getSize()];
 
-	std::cout << GL_R8 << ", " << GL_RG8 << ", " << GL_RGB8 << ", " << GL_RGBA8 << std::endl;
-
 	knoxh::Engine engine(1024, 8, 256, 32);
 
 	glfwSetErrorCallback(knoxh::error_callback);
@@ -64,6 +61,12 @@ int main()
 	}
 
 	knoxh::Window win(1280, 720, "Knoxh Engine Test");
+
+	win.setOpenGLVersion(4, 3);
+	win.setSamples(4);
+	win.forwardsCompatable(true);
+	win.useProfileCore(true);
+
 	win.createWindow();
 
 	win.makeCurrent();
@@ -76,9 +79,8 @@ int main()
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	// During init, enable debug output
-	glEnable              ( GL_DEBUG_OUTPUT );
-	glDebugMessageCallback( MessageCallback, 0 );
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(MessageCallback, 0);
 
 	knoxh::Texture* t = new knoxh::Texture(knoxh::loadImage("res/coin.png"));
 

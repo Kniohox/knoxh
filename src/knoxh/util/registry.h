@@ -8,11 +8,11 @@ namespace knoxh
 	class Registry
 	{
 	private:
-		int size;
+		int m_size;
 		//size of freeLocations array
-		int* freeLocations;
+		int* m_freeLocations;
 		//array of available locations, acts as a stack
-		int index;
+		int m_index;
 		//index of top of stack
 	public:
 		~Registry();

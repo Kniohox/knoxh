@@ -11,26 +11,28 @@ namespace knoxh
 
 	Engine::Engine(const int textureCap, const int fontCap, const int modelCap, const int shaderCap)
 	{
-		this->textureCap = textureCap;
-		this->fontCap = fontCap;
-		this->modelCap = modelCap;
-		this->shaderCap = shaderCap;
+		m_textureCap = textureCap;
+		m_fontCap = fontCap;
+		m_modelCap = modelCap;
+		m_shaderCap = shaderCap;
 
-		this->textureReg = new Registry(textureCap);
-		this->fontReg = new Registry(fontCap);
-		this->modelReg = new Registry(modelCap);
-		this->shaderReg = new Registry(shaderCap);
+		m_textureReg = new Registry(textureCap);
+		m_fontReg = new Registry(fontCap);
+		m_modelReg = new Registry(modelCap);
+		m_shaderReg = new Registry(shaderCap);
 
-		this->textureQueue = new Queue(textureCap);
-		this->fontQueue = new Queue(fontCap);
-		this->modelQueue = new Queue(modelCap);
-		this->shaderQueue = new Queue(shaderCap);
+		m_textureQueue = new Queue(textureCap);
+		m_fontQueue = new Queue(fontCap);
+		m_modelQueue = new Queue(modelCap);
+		m_shaderQueue = new Queue(shaderCap);
+
+		m_textures = new Texture*[textureCap] {nullptr};
 
 		std::cout << std::endl << "Initializing new engine" << std::endl <<
 		"-----------------------" << std::endl <<
-		"Texture Cap = " << textureCap << std::endl <<
-		"Font Cap    = " << fontCap << std::endl <<
-		"Model Cap   = " << modelCap << std::endl <<
-		"Shader Cap  = " << shaderCap << std::endl << std::endl;
+		"Texture Cap = " << m_textureCap << std::endl <<
+		"Font Cap    = " << m_fontCap << std::endl <<
+		"Model Cap   = " << m_modelCap << std::endl <<
+		"Shader Cap  = " << m_shaderCap << std::endl << std::endl;
 	}
 }

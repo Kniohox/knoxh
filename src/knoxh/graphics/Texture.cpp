@@ -16,7 +16,7 @@ namespace knoxh
 {
 	Texture::~Texture()
 	{
-		glDeleteTextures(1, &this->id);
+		glDeleteTextures(1, &m_id);
 	}
 
 	Texture::Texture(char* pixels, const unsigned short width, const unsigned short heigth)
@@ -26,7 +26,7 @@ namespace knoxh
 
 	Texture::Texture(ImageData image)
 	{
-		glGenTextures(1, &this->id);
+		glGenTextures(1, &m_id);
 		int imageType;
 		int dataType;
 		switch(image.components)
@@ -49,12 +49,11 @@ namespace knoxh
 			break;
 		}
 
-		glBindTexture(GL_TEXTURE_2D, this->id);
+		glBindTexture(GL_TEXTURE_2D, m_id);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data);
+		glTexImage2D(GL_TEXTURE_2D, 0, dataType, image.width, image.height, 0, imageType, GL_UNSIGNED_BYTE, image.data);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-
 		stbi_image_free(image.data);
 	}
 }

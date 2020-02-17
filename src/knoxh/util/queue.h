@@ -8,19 +8,19 @@ namespace knoxh
 	class Queue
 	{
 	private:
-		int* data;
+		int* m_data;
 		//queue
 
-		int size;
+		int m_size;
 		//size of queue
 
-		int pushIndex;
+		int m_pushIndex;
 		//index of next item to be added
 
-		int popIndex;
+		int m_popIndex;
 		//index of the next item to be removed
 
-		bool full;
+		bool m_full;
 		//keeping track of if the queue is full
 		//popIndex == pushIndex can be full queue or empty queue
 

@@ -4,77 +4,77 @@ namespace knoxh
 {
 	Registry::~Registry()
 	{
-		delete[] this->freeLocations;
+		delete[] m_freeLocations;
 	}
 
 	Registry::Registry(const int size)
 	{
-		this->size = size;
-		this->index = size-1;
-		this->freeLocations = new int[size];
+		m_size = size;
+		m_index = size-1;
+		m_freeLocations = new int[size];
 		for (int i = 0; i < size; i++)
 		{
-			freeLocations[i] = i;
+			m_freeLocations[i] = i;
 		}
 	}
 
 	int Registry::nextLocation()
 	{
-		return this->freeLocations[this->index--];
+		return m_freeLocations[m_index--];
 	}
 
 	void Registry::freeLocation(const int index)
 	{
-		this->freeLocations[++this->index] = index;
+		m_freeLocations[++m_index] = index;
 	}
 
 	int Registry::getSize()
 	{
-		return this->size;
+		return m_size;
 	}
 
 	void Registry::expand(const int change)
 	{
-		int* narr = new int[this->size+change];
+		int* narr = new int[m_size+change];
 		for (int i = 0; i < change; i++)
 		{
-			narr[i] = this->size+i;
+			narr[i] = m_size+i;
 		}
-		for (int i = 0; i <= this->index; i++)
+		for (int i = 0; i <= m_index; i++)
 		{
-			narr[i+change] = this->freeLocations[i];
+			narr[i+change] = m_freeLocations[i];
 		}
-		this->index+=change;
-		this->size+=change;
-		delete[] this->freeLocations;
-		this->freeLocations = narr;
+		m_index+=change;
+		m_size+=change;
+		delete[] m_freeLocations;
+		m_freeLocations = narr;
 	}
 
 	void Registry::reset(const int size)
 	{
-		delete[] this->freeLocations;
-		this->size = size;
-		this->index = size-1;
-		this->freeLocations = new int[size];
+		delete[] m_freeLocations;
+		m_size = size;
+		m_index = size-1;
+		m_freeLocations = new int[size];
 		for (int i = 0; i < size; i++)
 		{
-			freeLocations[i] = i;
+			m_freeLocations[i] = i;
 		}
 	}
 
 	void Registry::getFreeLocations(int**& array, int*& size)
 	{
-		array = &this->freeLocations;
-		size = &this->index;
+		array = &m_freeLocations;
+		size = &m_index;
 	}
 
 	int Registry::freeLocationCount()
 	{
-		return this->index+1;
+		return m_index+1;
 	}
 
 	int Registry::usedLocationCount()
 	{
-		return this->size-this->index-1;
+		return m_size-m_index-1;
 	}
 }

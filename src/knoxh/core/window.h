@@ -8,10 +8,28 @@ namespace knoxh
 	class Window
 	{
 	private:
-		GLFWwindow *window;
-		int width;
-		int height;
-		std::string title;
+		GLFWwindow* m_window = nullptr;
+		int m_width;
+		int m_height;
+		std::string m_title;
+
+		/*
+		WINDOW HINTS
+		*/
+
+		int m_versionMajor = 4;
+		//opengl 4.x
+		int m_versionMinor = 3;
+		//opengl x.3
+		int m_forwardsCompatable = GLFW_FALSE;
+		//opengl forwards compatability (true means depreciated functions are disabled)
+		int m_profile = GLFW_OPENGL_COMPAT_PROFILE;
+		//which opengl profile to use (core disables depreciated functions)
+
+		int m_samples = 0;
+		//multisampling samples
+		int m_resizeable = GLFW_TRUE;
+		//self explanitory
 	public:
 		Window(const int width, const int height);
 		/*
@@ -23,12 +41,37 @@ namespace knoxh
 		Window constructor, sets width, height, and title
 		*/
 
-		void createWindow();
+		void setOpenGLVersion(const int major, const int minor);
 		/*
-		Creates GLFW window with default hints`
+		sets the openGL version to use
 		*/
 
-		void createWindow(const int hints[], const int hint_count);
+		void setSamples(const int samples);
+		/*
+		sets the samples to be used in multisampling
+		*/
+
+		void useProfileCore(const bool use);
+		/*
+		sets whether or not to use openGL core or compatability profile
+		*/
+
+		void forwardsCompatable(const bool forwardsCompatable);
+		/*
+		sets whether or not to use forwards compatability (disable depreciated methods)
+		*/
+
+		void resizable(const bool resizable);
+		/*
+		sets whether or not the window will be resizable
+		*/
+
+		void createWindow();
+		/*
+		Creates GLFW window with previously set options
+		*/
+
+		void createWindow(const int hints[], const int hintCount);
 		/*
 		Creates GLFW window with chosen window hints
 		*/

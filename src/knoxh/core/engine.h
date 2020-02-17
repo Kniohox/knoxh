@@ -15,43 +15,40 @@ namespace knoxh
 	class Engine
 	{
 	private:
-		Window* window;
-		//Window to be used
-
-		Registry* textureReg;
+		Registry* m_textureReg;
 		//registry for textures
-		Queue* textureQueue;
+		Queue* m_textureQueue;
 		//queue for textures;
-		Texture** textures;
+		Texture** m_textures;
 		//texture array
-		int textureCap;
+		int m_textureCap;
 		//size of texture array
 
-		Registry* fontReg;
+		Registry* m_fontReg;
 		//registry for fonts
-		Queue* fontQueue;
+		Queue* m_fontQueue;
 		//queue for fonts;
 		/*Font** fonts;*/
 		//font array
-		int fontCap;
+		int m_fontCap;
 		//size of font array
 
-		Registry* modelReg;
+		Registry* m_modelReg;
 		//registry for models
-		Queue* modelQueue;
+		Queue* m_modelQueue;
 		//queue for models
 		/*Model** models;*/
 		//model array
-		int modelCap;
+		int m_modelCap;
 		//size of model array
 
-		Registry* shaderReg;
+		Registry* m_shaderReg;
 		//registry for shaders
-		Queue* shaderQueue;
+		Queue* m_shaderQueue;
 		//queue for shaders
 		/*Shader** shaders;*/
 		//shader array
-		int shaderCap;
+		int m_shaderCap;
 		//size of shader array
 
 

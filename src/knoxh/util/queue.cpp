@@ -4,21 +4,21 @@ namespace knoxh
 {
 	Queue::~Queue()
 	{
-		delete[] this->data;
+		delete[] m_data;
 	}
 
 	Queue::Queue(const int size)
 	{
-		this->data = new int[size];
-		this->size = size;
-		this-> pushIndex = 0;
-		this->popIndex = 0;
-		this->full = false;
+		m_data = new int[size];
+		m_size = size;
+		m_pushIndex = 0;
+		m_popIndex = 0;
+		m_full = false;
 	}
 
 	int Queue::getSize()
 	{
-		return this->size;
+		return m_size;
 	}
 
 	int Queue::queuedItems()
@@ -27,75 +27,75 @@ namespace knoxh
 		mmm
 		spaghetti
 		*/
-		return this->full ? this->size : this->popIndex <= this->pushIndex ? this->pushIndex-this->popIndex : this->pushIndex+this->size-this->popIndex;
+		return m_full ? m_size : m_popIndex <= m_pushIndex ? m_pushIndex-m_popIndex : m_pushIndex+m_size-m_popIndex;
 	}
 
 	void Queue::getQueue(int*& queue, int& size)
 	{
-		size = this->queuedItems();
+		size = queuedItems();
 		delete[] queue;
 		queue = new int[size];
-		if (this->popIndex <= this->pushIndex && !this->full)
+		if (m_popIndex <= m_pushIndex && !m_full)
 		{
-			for (int i = this->popIndex; i < this->pushIndex; i++)
+			for (int i = m_popIndex; i < m_pushIndex; i++)
 			{
-				queue[i-this->popIndex] = this->data[i];
+				queue[i-m_popIndex] = m_data[i];
 			}
 		}
 		else
 		{
-			for (int i = this->popIndex; i < this->size; i++)
+			for (int i = m_popIndex; i < m_size; i++)
 			{
-				queue[i-this->popIndex] = this->data[i];
+				queue[i-m_popIndex] = m_data[i];
 			}
-			for (int i = 0; i < this->pushIndex; i++)
+			for (int i = 0; i < m_pushIndex; i++)
 			{
-				queue[i+this->size-this->popIndex] = this->data[i];
+				queue[i+m_size-m_popIndex] = m_data[i];
 			}
 		}
 	}
 
 	bool Queue::isEmpty()
 	{
-		return this->full ? false : this->popIndex == this->pushIndex;
+		return m_full ? false : m_popIndex == m_pushIndex;
 	}
 
 	bool Queue::isFull()
 	{
-		return this->full;
+		return m_full;
 	}
 
 	bool Queue::push(const int item)
 	{
-		if (this->full)
+		if (m_full)
 		{
 			//oh fuck, the queue is full
 			return false;
 		}
-		this->data[this->pushIndex] = item;
-		if (++this->pushIndex == this->size)
+		m_data[m_pushIndex] = item;
+		if (++m_pushIndex == m_size)
 		{
-			this->pushIndex = 0;
+			m_pushIndex = 0;
 		}
-		if (this->pushIndex == this->popIndex)
+		if (m_pushIndex == m_popIndex)
 		{
-			this->full = true;
+			m_full = true;
 		}
 		return true;
 	}
 
 	int Queue::pop()
 	{
-		if (this->full)
+		if (m_full)
 		{
-			this->full = false;
+			m_full = false;
 		}
-		if (++this->popIndex == this->size)
+		if (++m_popIndex == m_size)
 		{
-			this->popIndex = 0;
-			return this->data[this->size-1];
+			m_popIndex = 0;
+			return m_data[m_size-1];
 		}
-		return this->data[this->popIndex-1];
+		return m_data[m_popIndex-1];
 	}
 
 	void Queue::expand(const int change)
@@ -104,42 +104,42 @@ namespace knoxh
 		no point in reusing the previous code in getQueue as it sets the array size to the amount of items in the queue
 		may split it into several functions at some point to reduce code redundency
 		*/
-		int* narr = new int[this->size+change];
-		if (this->popIndex <= this->pushIndex && !this->full)
+		int* narr = new int[m_size+change];
+		if (m_popIndex <= m_pushIndex && !m_full)
 		{
-			for (int i = this->popIndex; i < this->pushIndex; i++)
+			for (int i = m_popIndex; i < m_pushIndex; i++)
 			{
-				narr[i-this->popIndex] = this->data[i];
+				narr[i-m_popIndex] = m_data[i];
 			}
 		}
 		else
 		{
-			for (int i = this->popIndex; i < this->size; i++)
+			for (int i = m_popIndex; i < m_size; i++)
 			{
-				narr[i-this->popIndex] = this->data[i];
+				narr[i-m_popIndex] = m_data[i];
 			}
-			for (int i = 0; i < this->pushIndex; i++)
+			for (int i = 0; i < m_pushIndex; i++)
 			{
-				narr[i+this->size-this->popIndex] = this->data[i];
+				narr[i+m_size-m_popIndex] = m_data[i];
 			}
 		}
 
-		this->pushIndex = this->queuedItems();
-		delete[] this->data;
-		this->data = narr;
+		m_pushIndex = queuedItems();
+		delete[] m_data;
+		m_data = narr;
 
-		this->size+=change;
-		this->popIndex = 0;
-		this->full = false;
+		m_size+=change;
+		m_popIndex = 0;
+		m_full = false;
 	}
 
 	void Queue::reset(const int size)
 	{
-		delete[] this->data;
-		this->data = new int[size];
-		this->size = size;
-		this->pushIndex = 0;
-		this->popIndex = 0;
-		this->full = false;
+		delete[] m_data;
+		m_data = new int[size];
+		m_size = size;
+		m_pushIndex = 0;
+		m_popIndex = 0;
+		m_full = false;
 	}
 }

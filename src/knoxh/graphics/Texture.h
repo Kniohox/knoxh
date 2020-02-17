@@ -7,9 +7,9 @@ namespace knoxh
 	class Texture
 	{
 	private:
-		unsigned int id;
+		unsigned int m_id;
 	public:
-		~Texture();
+		virtual ~Texture();
 		Texture(char* pixels, const unsigned short width, const unsigned short height);
 		Texture(ImageData image);
 	};
