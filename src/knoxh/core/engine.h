@@ -24,14 +24,6 @@ namespace knoxh
 		int m_textureCap;
 		//size of texture array
 
-		Registry* m_fontReg;
-		//registry for fonts
-		Queue* m_fontQueue;
-		//queue for fonts;
-		/*Font** fonts;*/
-		//font array
-		int m_fontCap;
-		//size of font array
 
 		Registry* m_modelReg;
 		//registry for models
@@ -54,7 +46,7 @@ namespace knoxh
 
 	public:
 		~Engine();
-		Engine(const int textureCap, const int fontCap, const int modelCap, const int shaderCap);
+		Engine(const int textureCap, const int modelCap, const int shaderCap);
 
 		/*
 		+-------------------+

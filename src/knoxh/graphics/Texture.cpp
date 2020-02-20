@@ -1,7 +1,5 @@
 #include <stb/stb_image.h>
 
-//#include <GLFW/glfw3.h>
-//#include <GL/glext.h>
 #ifndef GLEW_STATIC
 #define GLEW_STATIC
 #endif
@@ -26,6 +24,10 @@ namespace knoxh
 
 	Texture::Texture(ImageData image)
 	{
+		if (image.data == nullptr)
+		{
+			return;
+		}
 		glGenTextures(1, &m_id);
 		int imageType;
 		int dataType;

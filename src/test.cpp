@@ -15,14 +15,19 @@
 #include <knoxh/core/window.h>
 #include <knoxh/core/engine.h>
 
-#include <knoxh/util/registry.h>
 #include <knoxh/util/funclib.h>
 #include <knoxh/util/queue.h>
+#include <knoxh/util/registry.h>
 
 #include <knoxh/graphics/texture.h>
 
 void printArray(int* array, int size)
 {
+	if (size == 0)
+	{
+		std::cout << "[ ]" << std::endl;
+		return;
+	}
 	std::cout << "[ " << array[0];
 	for (int i = 1; i < size; i++)
 	{
@@ -48,10 +53,7 @@ MessageCallback( GLenum source,
 
 int main()
 {
-	knoxh::Registry reg(8);
-	knoxh::Window* windows[reg.getSize()];
-
-	knoxh::Engine engine(1024, 8, 256, 32);
+	knoxh::Engine engine(1024, 256, 32);
 
 	glfwSetErrorCallback(knoxh::error_callback);
 
@@ -60,18 +62,37 @@ int main()
 		return -1;
 	}
 
-	knoxh::Window win(1280, 720, "Knoxh Engine Test");
+	knoxh::Window* win = new knoxh::Window(1280, 720, "Knoxh Engine Test");
 
-	win.setOpenGLVersion(4, 3);
-	win.setSamples(4);
-	win.forwardsCompatable(true);
-	win.useProfileCore(true);
+	win->setOpenGLVersion(4, 3);
+	win->setSamples(0);
+	win->forwardsCompatable(true);
+	win->useProfileCore(true);
 
-	win.createWindow();
+	win->createWindow();
 
-	win.makeCurrent();
+	win->makeCurrent();
 
-	GLenum err = glewInit();
+	knoxh::VoidRegistry reg(8);
+	int id = reg.addItem(win, 0);
+	reg.addItem(win, 1);
+	reg.addItem(win, 2);
+	reg.addItem(win, 3);
+	reg.addItem(win, 4);
+	reg.addItem(win, 5);
+	reg.addItem(win, 6);
+	reg.addItem(win, 7);
+	reinterpret_cast<knoxh::Window*>(reg.getItem(id))->printTitle();
+
+	int* lcs = nullptr;
+	int size;
+
+	reg.getUsedLocations(lcs, size);
+	printArray(lcs, size);
+	reg.getFreeLocations(lcs, size);
+	printArray(lcs, size);
+
+	unsigned int err = glewInit();
 	if (err != GLEW_OK)
 	{
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
@@ -83,16 +104,19 @@ int main()
 	glDebugMessageCallback(MessageCallback, 0);
 
 	knoxh::Texture* t = new knoxh::Texture(knoxh::loadImage("res/coin.png"));
+	knoxh::ImageData dat = knoxh::loadImage("res/cion.png");
+	knoxh::Texture* tt = new knoxh::Texture(dat);
 
 	delete t;
+	delete tt;
 
-	while (!win.shouldClose())
+	while (!win->shouldClose())
 	{
 		glfwPollEvents();
-		win.swapBuffers();
+		win->swapBuffers();
 	}
 
-	delete &win;
+	delete win;
 
 	glfwTerminate();
 

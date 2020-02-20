@@ -6,6 +6,11 @@
 
 namespace knoxh
 {
+	void Window::printTitle()
+	{
+		std::cout << "Title = " << m_title << std::endl;
+	}
+
 	//deconstruction
 	Window::~Window()
 	{

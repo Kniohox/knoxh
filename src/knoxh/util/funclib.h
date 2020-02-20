@@ -14,7 +14,7 @@ namespace knoxh
 		int width;
 		int height;
 		int components;
-		unsigned char* data;
+		unsigned char* data = nullptr;
 	};
 
 	ImageData loadImage(std::string path);

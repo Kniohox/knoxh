@@ -31,6 +31,8 @@ namespace knoxh
 		int m_resizeable = GLFW_TRUE;
 		//self explanitory
 	public:
+		void printTitle();
+
 		Window(const int width, const int height);
 		/*
 		Window constructor, sets with and height

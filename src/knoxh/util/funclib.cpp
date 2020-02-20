@@ -17,17 +17,33 @@ namespace knoxh
 
 	ImageData loadImage(std::string path)
 	{
-		path.insert(0, std::filesystem::current_path().string()+="/");
-		stbi_set_flip_vertically_on_load(true);
 
 		ImageData image;
+
+		std::cout << "Loading image at \"" << path << "\"" << std::endl;
+
+		if (!std::filesystem::exists(std::filesystem::status(path)))
+		{
+			std::cout << "\\-Failed to load image\n\t->Error loading image: file does not exist" << std::endl;
+			return image;
+		}
+
+		stbi_set_flip_vertically_on_load(true);
 		image.data = stbi_load(path.c_str(), &image.width, &image.height, &image.components, 0);
+
+		if (image.data != nullptr)
+		{
+			std::cout << "\\-Successfully loaded image" << std::endl;
+		}
+		else
+		{
+			std::cout << "\\-Failed to load image" << std::endl;
+		}
 		if (stbi_failure_reason())
 		{
-			std::cout << stbi_failure_reason() << std::endl;
+			std::cout << "\t->Error loading image: " << stbi_failure_reason() << std::endl;
 		};
 
-		//stbi_image_free(image.data);
 		return image;
 	}
 }
