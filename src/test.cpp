@@ -17,7 +17,7 @@
 
 #include <knoxh/util/funclib.h>
 #include <knoxh/util/queue.h>
-#include <knoxh/util/registry.h>
+#include <knoxh/util/voidregistry.h>
 
 #include <knoxh/graphics/texture.h>
 
@@ -51,6 +51,16 @@ MessageCallback( GLenum source,
             type, severity, message );
 }
 
+void delWindow(void* ptr)
+{
+	delete reinterpret_cast<knoxh::Window*>(ptr);
+}
+
+void delTexture(void* ptr)
+{
+	delete reinterpret_cast<knoxh::Texture*>(ptr);
+}
+
 int main()
 {
 	knoxh::Engine engine(1024, 256, 32);
@@ -73,24 +83,10 @@ int main()
 
 	win->makeCurrent();
 
-	knoxh::VoidRegistry reg(8);
-	int id = reg.addItem(win, 0);
-	reg.addItem(win, 1);
-	reg.addItem(win, 2);
-	reg.addItem(win, 3);
-	reg.addItem(win, 4);
-	reg.addItem(win, 5);
-	reg.addItem(win, 6);
-	reg.addItem(win, 7);
+	knoxh::VoidRegistry reg(8, 4);
+	short winType = reg.addType(&delWindow);
+	int id = reg.addItem(win, winType);
 	reinterpret_cast<knoxh::Window*>(reg.getItem(id))->printTitle();
-
-	int* lcs = nullptr;
-	int size;
-
-	reg.getUsedLocations(lcs, size);
-	printArray(lcs, size);
-	reg.getFreeLocations(lcs, size);
-	printArray(lcs, size);
 
 	unsigned int err = glewInit();
 	if (err != GLEW_OK)
@@ -104,11 +100,20 @@ int main()
 	glDebugMessageCallback(MessageCallback, 0);
 
 	knoxh::Texture* t = new knoxh::Texture(knoxh::loadImage("res/coin.png"));
-	knoxh::ImageData dat = knoxh::loadImage("res/cion.png");
-	knoxh::Texture* tt = new knoxh::Texture(dat);
+	knoxh::Texture* tt = new knoxh::Texture(knoxh::loadImage("res/cion.png"));
 
-	delete t;
-	delete tt;
+	short texType = reg.addType(&delTexture);
+
+	reg.addItem(t, texType);
+	reg.addItem(tt, texType);
+
+	int* lcs = nullptr;
+	int size;
+
+	reg.getUsedLocations(lcs, size);
+	printArray(lcs, size);
+	reg.getFreeLocations(lcs, size);
+	printArray(lcs, size);
 
 	while (!win->shouldClose())
 	{
@@ -116,7 +121,7 @@ int main()
 		win->swapBuffers();
 	}
 
-	delete win;
+	reg.clear();
 
 	glfwTerminate();
 

@@ -14,6 +14,7 @@ namespace knoxh
 {
 	Texture::~Texture()
 	{
+		std::cout << "Deleting texture at " << this << std::endl;
 		glDeleteTextures(1, &m_id);
 	}
 

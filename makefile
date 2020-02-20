@@ -16,9 +16,9 @@ LIB_FOLDER:=-Llib
 LIB:=-lglew32 -lglfw3 -lopengl32 -lgdi32
 
 #cpp files to be compiled
-DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o
+DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o
 #headers to be added as dependencies so changes to them cause the build to become outdated
-HEADERS:=window.h funclib.h engine.h registry.h queue.h texture.h
+HEADERS:=window.h funclib.h engine.h registry.h queue.h texture.h voidregistry.o
 
 #each folder containing files needs to be here
 VPATH=build:src:src/knoxh/core:src/knoxh/util:src/knoxh/graphics
