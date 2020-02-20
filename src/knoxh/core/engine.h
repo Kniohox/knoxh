@@ -2,7 +2,7 @@
 
 #include <knoxh/core/window.h>
 
-#include <knoxh/util/registry.h>
+#include <knoxh/util/voidregistry.h>
 #include <knoxh/util/queue.h>
 
 #include <knoxh/graphics/texture.h>
@@ -15,38 +15,14 @@ namespace knoxh
 	class Engine
 	{
 	private:
-		Registry* m_textureReg;
-		//registry for textures
-		Queue* m_textureQueue;
-		//queue for textures;
-		Texture** m_textures;
-		//texture array
-		int m_textureCap;
-		//size of texture array
-
-
-		Registry* m_modelReg;
-		//registry for models
-		Queue* m_modelQueue;
-		//queue for models
-		/*Model** models;*/
-		//model array
-		int m_modelCap;
-		//size of model array
-
-		Registry* m_shaderReg;
-		//registry for shaders
-		Queue* m_shaderQueue;
-		//queue for shaders
-		/*Shader** shaders;*/
-		//shader array
-		int m_shaderCap;
-		//size of shader array
-
+		VoidRegistry* m_registry;
+		Queue* m_queue;
 
 	public:
+		short m_typeid_texture;
+
 		~Engine();
-		Engine(const int textureCap, const int modelCap, const int shaderCap);
+		Engine(const int size);
 
 		/*
 		+-------------------+
@@ -69,21 +45,6 @@ namespace knoxh
 		void nextTexture();
 		/*
 		loads the texture that's been in the texture queue the longest
-		*/
-
-		void loadTextures();
-		/*
-		loads all the textures in the texture queue
-		*/
-
-		void deleteTexture(const int id);
-		/*
-		removes the texture with id id in the texture registry
-		*/
-
-		void deleteTextures(const int* ids, const int count);
-		/*
-		removes the textures with ids ids in the texture registry
 		*/
 
 		/*
@@ -114,16 +75,6 @@ namespace knoxh
 		loads all the fonts in the font queue
 		*/
 
-		void deleteFont(const int id);
-		/*
-		removes the font with id id in the font registry
-		*/
-
-		void deleteFonts(const int* ids, const int count);
-		/*
-		removes the fonts with ids ids in the font registry
-		*/
-
 		/*
 		+-----------------+
 		| MODEL FUNCTIONS |
@@ -145,16 +96,6 @@ namespace knoxh
 		void nextModel();
 		/*
 		loads the model that's been in the model queue the longest
-		*/
-
-		void deleteModel(const int id);
-		/*
-		removes the model with id id in the model registry
-		*/
-
-		void deleteModels(const int* ids, const int count);
-		/*
-		removes the models with ids ids in the model registry
 		*/
 
 		/*
@@ -180,15 +121,6 @@ namespace knoxh
 		loads the shader that's been in the model queue the longest
 		*/
 
-		void deleteShader(const int id);
-		/*
-		removes the shader with id id in the shader registry
-		*/
-
-		void deleteShaders(const int* ids, const int count);
-		/*
-		removes the shaders with ids ids in the shader registry
-		*/
 
 		void cleanup();
 		/*

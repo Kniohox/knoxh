@@ -31,10 +31,6 @@ all:
 build: ${DEPENDENCIES} ${HEADERS}
 	g++ $(addprefix ${BUILD_DIR}/,${DEPENDENCIES}) ${LIB_FOLDER} ${LIB} -o ${BUILD_DIR}/${EXECUTABLE}${EXTENSION} ${FLAGS}
 
-#compile cpp source files to binary
-%.o: %.cpp
-	$(foreach file,$?, g++ -c ${file} -o ${BUILD_DIR}/$@ ${FLAGS} ${INCLUDE_FOLDERS})
-
 #install output to computer
 install:
 	@echo Not yet implemented
@@ -47,3 +43,7 @@ run:
 #deletes all files in build directory
 clean:
 	DEL /Q ${BUILD_DIR}\\*.*
+
+#compile cpp source files to binary
+%.o: %.cpp
+		$(foreach file,$?, g++ -c ${file} -o ${BUILD_DIR}/$@ ${FLAGS} ${INCLUDE_FOLDERS})

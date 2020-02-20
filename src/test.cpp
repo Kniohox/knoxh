@@ -63,8 +63,6 @@ void delTexture(void* ptr)
 
 int main()
 {
-	knoxh::Engine engine(1024, 256, 32);
-
 	glfwSetErrorCallback(knoxh::error_callback);
 
 	if (!glfwInit())
@@ -83,7 +81,7 @@ int main()
 
 	win->makeCurrent();
 
-	knoxh::VoidRegistry reg(8, 4);
+	knoxh::VoidRegistry reg(128, 32);
 	short winType = reg.addType(&delWindow);
 	int id = reg.addItem(win, winType);
 	reinterpret_cast<knoxh::Window*>(reg.getItem(id))->printTitle();

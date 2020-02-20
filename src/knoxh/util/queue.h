@@ -66,6 +66,12 @@ namespace knoxh
 		returns if the attempt was successful
 		*/
 
+		void safePush(const int item);
+		/*
+		double the size of the queue if it's full
+		add an item to the queue
+		*/
+
 		int pop();
 		/*
 		get oldest item in queue

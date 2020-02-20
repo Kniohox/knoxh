@@ -84,6 +84,23 @@ namespace knoxh
 		return true;
 	}
 
+	void Queue::safePush(const int item)
+	{
+		if (m_full)
+		{
+			expand(m_size);
+		}
+		m_data[m_pushIndex] = item;
+		if (++m_pushIndex == m_size)
+		{
+			m_pushIndex = 0;
+		}
+		if (m_pushIndex == m_popIndex)
+		{
+			m_full = true;
+		}
+	}
+
 	int Queue::pop()
 	{
 		if (m_full)

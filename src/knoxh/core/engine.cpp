@@ -1,34 +1,22 @@
 #include <knoxh/core/engine.h>
+#include <knoxh/graphics/texture.h>
 
 #include <iostream>
 
 namespace knoxh
 {
+
+	void deleteTexture(voit* ptr) {delete reinterpret_cast<Texture>(ptr);}
+
 	Engine::~Engine()
 	{
-
+		delete m_registry;
 	}
 
-	Engine::Engine(const int textureCap, const int modelCap, const int shaderCap)
+	Engine::Engine(const int size)
 	{
-		m_textureCap = textureCap;
-		m_modelCap = modelCap;
-		m_shaderCap = shaderCap;
-
-		m_textureReg = new Registry(textureCap);
-		m_modelReg = new Registry(modelCap);
-		m_shaderReg = new Registry(shaderCap);
-
-		m_textureQueue = new Queue(textureCap);
-		m_modelQueue = new Queue(modelCap);
-		m_shaderQueue = new Queue(shaderCap);
-
-		m_textures = new Texture*[textureCap] {nullptr};
-
-		std::cout << std::endl << "Initializing new engine" << std::endl <<
-		"-----------------------" << std::endl <<
-		"Texture Cap = " << m_textureCap << std::endl <<
-		"Model Cap   = " << m_modelCap << std::endl <<
-		"Shader Cap  = " << m_shaderCap << std::endl << std::endl;
+		m_queue = new Queue(size);
+		m_registry = new VoidRegistry(size, 16);
+		m_typeid_texture = m_registry->addType(&deleteTexture);
 	}
 }
