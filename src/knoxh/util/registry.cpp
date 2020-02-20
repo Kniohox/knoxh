@@ -147,7 +147,26 @@ namespace knoxh
 
 	void VoidRegistry::expand(const int change)
 	{
-
+		int* nfl = new int[m_size+change];
+		void** ndt = new void*[m_size+change] {nullptr};
+		for (int i = 0; i < change; i++)
+		{
+			nfl[i] = m_size+i;
+		}
+		for (int i = 0; i <= m_index; i++)
+		{
+			nfl[i+change] = m_freeLocations[i];
+		}
+		for (int i = 0; i < m_size; i++)
+		{
+			ndt[i] = m_data[i];
+		}
+		m_index+=change;
+		m_size+=change;
+		delete[] m_freeLocations;
+		delete[] m_data;
+		m_freeLocations = nfl;
+		m_data = ndt;
 	}
 
 	int VoidRegistry::getSize()

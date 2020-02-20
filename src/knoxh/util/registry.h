@@ -78,6 +78,9 @@ namespace knoxh
 	VOID REGISTRY
 	*/
 
+	/*
+	class for storing items and id-ing them
+	*/
 	class VoidRegistry
 	{
 	private:
