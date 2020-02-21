@@ -7,6 +7,9 @@
 
 #include <knoxh/graphics/texture.h>
 
+//may or may not be used
+typedef void* (*knoxh_loadFunc)(void* dataType);
+
 namespace knoxh
 {
 	/*
@@ -16,13 +19,27 @@ namespace knoxh
 	{
 	private:
 		VoidRegistry* m_registry;
+		//VoidRegistry for storing items
 		Queue* m_queue;
+		//queue for items that have yet to be loaded
+		//may or may not be used
 
 	public:
 		short m_typeid_texture;
+		short m_typeid_window;
 
 		~Engine();
 		Engine(const int size);
+
+		void deleteItem(const int id);
+		/*
+		delete item with index "id"
+		*/
+
+		void deleteItems(const int* ids, const int size);
+		/*
+		calls deleteItem(ids[i]) for each id from array "ids" with size "size"
+		*/
 
 		/*
 		+-------------------+

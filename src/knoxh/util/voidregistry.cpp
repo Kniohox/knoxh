@@ -47,6 +47,22 @@ namespace knoxh
 		return addItem(item, type);
 	}
 
+	void VoidRegistry::replaceItem(const int index, void* item, const short type)
+	{
+		m_data[index] = item;
+		m_type[index] = type;
+	}
+
+	bool VoidRegistry::safeReplaceItem(const int index, void* item, const short type)
+	{
+		if (m_data[index] == nullptr)
+		{
+			return false;
+		}
+		replaceItem(index, item, type);
+		return true;
+	}
+
 	void* VoidRegistry::popItem(const int index)
 	{
 		m_freeLocations[++m_index] = index;

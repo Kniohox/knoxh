@@ -1,3 +1,5 @@
+#pragma once
+
 #include <knoxh/util/registry.h>
 
 typedef void (*knoxh_delFunc)(void* item);
@@ -51,6 +53,19 @@ namespace knoxh
 		adds "item" to the next free location in m_data
 		adds "type" to the same location in m_type
 		returns the location in m_data
+		*/
+
+		void replaceItem(const int index, void* item, const short type);
+		/*
+		sets the item at index "index" of m_data to "item"
+		sets the type at index "index" of m_type to "type"
+		*/
+
+		bool safeReplaceItem(const int index, void* item, const short type);
+		/*
+		deletes the current item at index "index" of m_data
+		if there is no existing item at the index "index" of m_data the function returns false
+		if there was an existing item, setItem(index, item, type) is called
 		*/
 
 		void* popItem(const int index);
