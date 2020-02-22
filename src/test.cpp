@@ -21,6 +21,78 @@
 
 #include <knoxh/graphics/texture.h>
 
+void printArray(int* array, int size);
+
+int init();
+int loop();
+int cleanup();
+
+knoxh::Window* window;
+
+int main()
+{
+	if (init() != 0)
+	{
+		return -1;
+	}
+
+	if (loop() != 0)
+	{
+		return -2;
+	}
+
+	if (cleanup() != 0)
+	{
+		return -3;
+	}
+
+	return 0;
+}
+
+int init()
+{
+	if (!knoxh::Window::init())
+	{
+		return -1;
+	}
+
+	window = new knoxh::Window(1280, 720, "Knoxh Engine Test");
+
+	window->setOpenGLVersion(4, 3);
+	window->setSamples(0);
+	window->forwardsCompatable(true);
+	window->useProfileCore(true);
+
+	window->createWindow();
+
+	window->makeCurrent();
+
+	if (!window->initGL())
+	{
+		return -1;
+	}
+	return 0;
+}
+
+int loop()
+{
+	while (!window->shouldClose())
+	{
+		glfwPollEvents();
+		window->swapBuffers();
+	}
+	return 0;
+}
+
+int cleanup()
+{
+	delete window;
+
+	knoxh::Window::terminateWindows();
+
+	return 0;
+}
+
 void printArray(int* array, int size)
 {
 	if (size == 0)
@@ -34,94 +106,4 @@ void printArray(int* array, int size)
 		std::cout << ", " << array[i];
 	}
 	std::cout << " ]" << std::endl;
-}
-
-//temporary method
-void GLAPIENTRY
-MessageCallback( GLenum source,
-                 GLenum type,
-                 GLuint id,
-                 GLenum severity,
-                 GLsizei length,
-                 const GLchar* message,
-                 const void* userParam )
-{
-  fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
-           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
-            type, severity, message );
-}
-
-void delWindow(void* ptr)
-{
-	delete reinterpret_cast<knoxh::Window*>(ptr);
-}
-
-void delTexture(void* ptr)
-{
-	delete reinterpret_cast<knoxh::Texture*>(ptr);
-}
-
-int main()
-{
-	glfwSetErrorCallback(knoxh::error_callback);
-
-	if (!glfwInit())
-	{
-		return -1;
-	}
-
-	knoxh::Window* win = new knoxh::Window(1280, 720, "Knoxh Engine Test");
-
-	win->setOpenGLVersion(4, 3);
-	win->setSamples(0);
-	win->forwardsCompatable(true);
-	win->useProfileCore(true);
-
-	win->createWindow();
-
-	win->makeCurrent();
-
-	knoxh::VoidRegistry reg(128, 32);
-	short winType = reg.addType(&delWindow);
-	int id = reg.addItem(win, winType);
-	reinterpret_cast<knoxh::Window*>(reg.getItem(id))->printTitle();
-
-	unsigned int err = glewInit();
-	if (err != GLEW_OK)
-	{
-		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-	}
-
-	std::cout << glGetString(GL_VERSION) << std::endl;
-
-	glEnable(GL_DEBUG_OUTPUT);
-	glDebugMessageCallback(MessageCallback, 0);
-
-	knoxh::Texture* t = new knoxh::Texture(knoxh::loadImage("res/coin.png"));
-	knoxh::Texture* tt = new knoxh::Texture(knoxh::loadImage("res/cion.png"));
-
-	short texType = reg.addType(&delTexture);
-
-	reg.addItem(t, texType);
-	reg.addItem(tt, texType);
-
-	int* lcs = nullptr;
-	int size;
-
-	reg.getUsedLocations(lcs, size);
-	printArray(lcs, size);
-	reg.getFreeLocations(lcs, size);
-	printArray(lcs, size);
-
-	while (!win->shouldClose())
-	{
-		glfwPollEvents();
-		win->swapBuffers();
-	}
-
-	reg.clear();
-
-	glfwTerminate();
-
-	return 0;
 }

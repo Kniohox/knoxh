@@ -95,12 +95,12 @@ namespace knoxh
 		return m_data[index];
 	}
 
-	short VoidRegistry::getType(const int index)
+	 short VoidRegistry::getType(const int index)
 	{
 		return m_type[index];
 	}
 
-	void VoidRegistry::setType(const int index, const short type)
+	 void VoidRegistry::setType(const int index, const short type)
 	{
 		m_type[index] = type;
 	}
@@ -243,6 +243,21 @@ namespace knoxh
 		delete[] m_delFunctions;
 		m_delFunctions = narr;
 		m_callreg->expand(change);
+	}
+
+	int VoidRegistry::getTypeSize()
+	{
+		return m_callreg->getSize();
+	}
+
+	int VoidRegistry::freeTypeCount()
+	{
+		return m_callreg->freeLocationCount();
+	}
+
+	int VoidRegistry::usedTypeCount()
+	{
+		return m_callreg->usedLocationCount();
 	}
 
 	void VoidRegistry::deleteAll()

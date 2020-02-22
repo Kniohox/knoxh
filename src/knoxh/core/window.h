@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef GLEW_STATIC
+#define GLEW_STATIC
+#endif
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <string>
 
@@ -31,6 +35,23 @@ namespace knoxh
 		int m_resizeable = GLFW_TRUE;
 		//self explanitory
 	public:
+
+		static bool init();
+		/*
+		attaches an error function to glfw
+		calls glfwInit(), returns the output
+		*/
+
+		static void terminateWindows();
+		/*
+		calls glfwTerminate()
+		*/
+
+		bool initGL();
+		/*
+		initializes openGL and returns if the attempt was successful
+		*/
+
 		void printTitle();
 
 		Window(const int width, const int height);

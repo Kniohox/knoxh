@@ -6,6 +6,9 @@ typedef void (*knoxh_delFunc)(void* item);
 
 namespace knoxh
 {
+	/*
+	semi-automatic resource management class
+	*/
 	class VoidRegistry
 	{
 	private:
@@ -177,6 +180,21 @@ namespace knoxh
 		void expandTypeCap(const int change);
 		/*
 		increases the size of the m_delFunctions array and m_callreg by "change"
+		*/
+
+		int getTypeSize();
+		/*
+		returns the size of m_callreg
+		*/
+
+		int freeTypeCount();
+		/*
+		returns the number of free locations in m_callreg
+		*/
+
+		int usedTypeCount();
+		/*
+		returns the number of used locations in m_callreg
 		*/
 
 		void deleteAll();

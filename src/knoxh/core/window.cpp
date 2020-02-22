@@ -1,11 +1,46 @@
 #include <knoxh/core/window.h>
 
+#ifndef GLEW_STATIC
+#define GLEW_STATIC
+#endif
+#include <GL/glew.h>
+
 #include <GLFW/glfw3.h>
+
 #include <string>
 #include <iostream>
 
 namespace knoxh
 {
+	void glfwErrorCallback(int error, const char* description)
+	{
+		fprintf(stderr, "GLFW ERROR\n%s\n", description);
+	}
+
+	//static method
+	bool Window::init()
+	{
+		glfwSetErrorCallback(glfwErrorCallback);
+		return glfwInit() == GLFW_TRUE ? true : false;
+	}
+
+	//static method
+	void Window::terminateWindows()
+	{
+		glfwTerminate();
+	}
+
+	bool Window::initGL()
+	{
+		unsigned int error = glewInit();
+		if (error != GLEW_OK)
+		{
+			fprintf(stderr, "OPENGL ERROR\n%s\n", glewGetErrorString(error));
+			return false;
+		}
+		return true;
+	}
+
 	void Window::printTitle()
 	{
 		std::cout << "Title = " << m_title << std::endl;
