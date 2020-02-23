@@ -16,9 +16,9 @@ LIB_FOLDER:=-Llib
 LIB:=-lglew32 -lglfw3 -lopengl32 -lgdi32
 
 #cpp files to be compiled
-DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o
+DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o shader.o
 #headers to be added as dependencies so changes to them cause the build to become outdated
-HEADERS:=window.h funclib.h engine.h registry.h queue.h texture.h voidregistry.o
+HEADERS:=window.h funclib.h engine.h registry.h queue.h texture.h voidregistry.h shader.h
 
 #each folder containing files needs to be here
 VPATH=build:src:src/knoxh/core:src/knoxh/util:src/knoxh/graphics
@@ -29,7 +29,8 @@ all:
 
 #assimilating binary files and linking libraries
 build: ${DEPENDENCIES} ${HEADERS}
-	g++ $(addprefix ${BUILD_DIR}/,${DEPENDENCIES}) ${LIB_FOLDER} ${LIB} -o ${BUILD_DIR}/${EXECUTABLE}${EXTENSION} ${FLAGS}
+	g++ $(addprefix ${BUILD_DIR}/,${DEPENDENCIES}) ${LIB_FOLDER} ${LIB} -o ${EXECUTABLE}${EXTENSION} ${FLAGS}
+#g++ $(addprefix ${BUILD_DIR}/,${DEPENDENCIES}) ${LIB_FOLDER} ${LIB} -o ${BUILD_DIR}/${EXECUTABLE}${EXTENSION} ${FLAGS}
 
 #install output to computer
 install:
@@ -38,11 +39,13 @@ install:
 #running output file, for some reason a make error is always thrown even if there is no problem with the executable
 run:
 	@echo.
-	@cd ${BUILD_DIR} && ${EXECUTABLE}${EXTENSION}
+	@${EXECUTABLE}${EXTENSION}
+#@cd ${BUILD_DIR} && ${EXECUTABLE}${EXTENSION}
 
 #deletes all files in build directory
 clean:
 	DEL /Q ${BUILD_DIR}\\*.*
+	DEL /Q ${EXECUTABLE}${EXTENSION}
 
 #compile cpp source files to binary
 %.o: %.cpp

@@ -20,6 +20,7 @@
 #include <knoxh/util/voidregistry.h>
 
 #include <knoxh/graphics/texture.h>
+#include <knoxh/graphics/shader.h>
 
 void printArray(int* array, int size);
 
@@ -71,13 +72,18 @@ int init()
 	{
 		return -1;
 	}
+
+	std::cout << "TEST FILE LOAD\n==============\n" << knoxh::loadFile("res/vertex.glsl") << "\n===============\nEMD OF FILE" << std::endl;
+
 	return 0;
 }
 
 int loop()
 {
+
 	while (!window->shouldClose())
 	{
+		//need input manager to replace glfwPollEvents
 		glfwPollEvents();
 		window->swapBuffers();
 	}
