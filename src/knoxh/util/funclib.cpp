@@ -25,9 +25,10 @@ namespace knoxh
 			fread(&contents[0], sizeof(char), size, file);
 
 			fclose(file);
+
 			return contents;
 		}
-		return NULL;
+		return "";
 	}
 
 	ImageData loadImage(std::string path)

@@ -1,6 +1,6 @@
 #include "basicshader.h"
 
-BasicShader::BasicShader() : Shader("res/vertex.glsl", "res/fragment.glsl")
+BasicShader::BasicShader() : Shader("res/shaders/basicVertex.glsl", "res/shaders/basicFragment.glsl")
 {
 	//nothing here
 }
