@@ -41,6 +41,21 @@ namespace knoxh
 		return id;
 	}
 
+	void Shader::bindAttrib(unsigned int index, const char* name)
+	{
+		glBindAttribLocation(m_programID, index, name);
+	}
+
+	void Shader::bindFragmentData(unsigned int index, const char* name)
+	{
+		glBindFragDataLocation(m_programID, index, name);
+	}
+
+	unsigned int Shader::getUniformLocation(const char* name)
+	{
+		return glGetUniformLocation(m_programID, name);
+	}
+
 	Shader::~Shader()
 	{
 		glUseProgram(0);

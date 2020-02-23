@@ -22,6 +22,8 @@
 #include <knoxh/graphics/texture.h>
 #include <knoxh/graphics/shader.h>
 
+#include "basicshader.h"
+
 void printArray(int* array, int size);
 
 int init();
@@ -29,6 +31,7 @@ int loop();
 int cleanup();
 
 knoxh::Window* window;
+BasicShader* shaderTest;
 
 int main()
 {
@@ -73,7 +76,8 @@ int init()
 		return -1;
 	}
 
-	std::cout << "TEST FILE LOAD\n==============\n" << knoxh::loadFile("res/vertex.glsl") << "\n===============\nEMD OF FILE" << std::endl;
+	shaderTest = new BasicShader();
+	shaderTest->init();
 
 	return 0;
 }
@@ -92,6 +96,8 @@ int loop()
 
 int cleanup()
 {
+	delete shaderTest;
+
 	delete window;
 
 	knoxh::Window::terminateWindows();

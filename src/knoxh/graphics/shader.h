@@ -32,6 +32,21 @@ namespace knoxh
 		returns the shader id
 		*/
 
+		void bindAttrib(unsigned int index, const char* name);
+		/*
+		binds attrib in shader with name "name" to index "index"
+		*/
+
+		void bindFragmentData(unsigned int index, const char* name);
+		/*
+		binds fragment shader output with name "name" to index "index" 
+		*/
+
+		unsigned int getUniformLocation(const char* name);
+		/*
+		returns the id of the uniform with name "name"
+		*/
+
 		/*
 		NO DEFAULT CODE, NEED AN OVERLOAD
 		*/
