@@ -4,11 +4,9 @@
 
 class BasicShader : public knoxh::Shader
 {
-private:
-
 public:
-	//~BasicShader(); //no point in overloading destructor
 	BasicShader();
+	~BasicShader();
 	void bindAttribs();
 	void bindFragmentData();
 	void bindSamplers(); //not used, no textures

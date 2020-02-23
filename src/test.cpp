@@ -44,7 +44,7 @@ int loop();
 int cleanup();
 
 knoxh::Window* window;
-BasicShader* shaderTest = nullptr;
+knoxh::Shader* shaderTest;
 
 int main()
 {
@@ -115,7 +115,6 @@ int cleanup()
 	delete shaderTest;
 
 	delete window;
-
 	knoxh::Window::terminateWindows();
 
 	return 0;

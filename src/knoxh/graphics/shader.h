@@ -20,13 +20,7 @@ namespace knoxh
 		std::string m_fragPath;
 
 	protected:
-		void loadShader(std::string path, unsigned int type);
-		/*
-		loads a shader with path "path" and type "type"
-		sets the corresponding id to the shader id
-		*/
-
-		static unsigned int compileShader(const char* code, unsigned int type);
+		static void compileShader(unsigned int& id, const char* code, unsigned int type);
 		/*
 		compiles GLSL shader with code "code" and type "type"
 		returns the shader id
@@ -39,7 +33,7 @@ namespace knoxh
 
 		void bindFragmentData(unsigned int index, const char* name);
 		/*
-		binds fragment shader output with name "name" to index "index" 
+		binds fragment shader output with name "name" to index "index"
 		*/
 
 		unsigned int getUniformLocation(const char* name);
@@ -57,14 +51,14 @@ namespace knoxh
 
 	public:
 
-		virtual ~Shader();
-		/*
-		deletes the shaders and shader program
-		*/
-
 		Shader(std::string vertPath, std::string fragPath);
 		/*
 		sets m_vertPath to "vertPath" and m_fragPath to "fragPath"
+		*/
+
+		virtual ~Shader();
+		/*
+		deletes the shaders and shader program
 		*/
 
 		void init();

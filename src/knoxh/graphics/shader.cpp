@@ -11,34 +11,20 @@
 
 namespace knoxh
 {
-	void Shader::loadShader(std::string path, unsigned int type)
+	void Shader::compileShader(unsigned int& id, const char* code, unsigned int type)
 	{
-		switch(type)
-		{
-		case GL_VERTEX_SHADER:
-			m_vertexID = compileShader(loadFile(path).c_str(), GL_VERTEX_SHADER);
-			break;
-		case GL_FRAGMENT_SHADER:
-			m_fragmentID = compileShader(loadFile(path).c_str(), GL_FRAGMENT_SHADER);
-			break;
-		}
-	}
-
-	unsigned int Shader::compileShader(const char* code, unsigned int type)
-	{
-		unsigned int id = glCreateShader(type);
-		glShaderSource(id, 1, &code, NULL);
+		id = glCreateShader(type);
+		glShaderSource(id, 1, &code, nullptr);
 		glCompileShader(id);
-		int* compileStatus;
-		glGetShaderiv(id, GL_COMPILE_STATUS, compileStatus);
-		if (*compileStatus == GL_FALSE)
+		int compileStatus;
+		glGetShaderiv(id, GL_COMPILE_STATUS, &compileStatus);
+		if (compileStatus == GL_FALSE)
 		{
 			char* infoLog = new char[1024];
 			glGetShaderInfoLog(id, 1024, NULL, infoLog);
 			fprintf(stderr, "Could not compile shader\n%s", infoLog);
 			delete[] infoLog;
 		}
-		return id;
 	}
 
 	void Shader::bindAttrib(unsigned int index, const char* name)
@@ -59,10 +45,6 @@ namespace knoxh
 	Shader::~Shader()
 	{
 		glUseProgram(0);
-		glDetachShader(m_programID, m_vertexID);
-		glDetachShader(m_programID, m_fragmentID);
-		glDeleteShader(m_vertexID);
-		glDeleteShader(m_fragmentID);
 		glDeleteProgram(m_programID);
 	}
 
@@ -75,9 +57,10 @@ namespace knoxh
 	void Shader::init()
 	{
 		m_programID = glCreateProgram();
-		loadShader(m_vertPath, GL_VERTEX_SHADER);
+
+		compileShader(m_vertexID, loadFile(m_vertPath).c_str(), GL_VERTEX_SHADER);
 		glAttachShader(m_programID, m_vertexID);
-		loadShader(m_fragPath, GL_FRAGMENT_SHADER);
+		compileShader(m_fragmentID, loadFile(m_fragPath).c_str(), GL_FRAGMENT_SHADER);
 		glAttachShader(m_programID, m_fragmentID);
 
 		bindAttribs();
@@ -87,6 +70,9 @@ namespace knoxh
 		glValidateProgram(m_programID);
 
 		getUniformLocations();
+
+		glDeleteShader(m_vertexID);
+		glDeleteShader(m_fragmentID);
 	}
 
 	void Shader::bind()
