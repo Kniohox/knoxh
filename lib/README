@@ -1,0 +1,7 @@
+library files for GLEW and GLFW3 need to be placed in the lib folder
+
+library files should be in the format "lib<name>.a"
+.lib libraries will cause compilation errors as g++ is not compatable with
+
+GLEW library file should be named "libglew.a",
+GLFW3 library file should be named "libgflw3.a"

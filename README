@@ -7,7 +7,10 @@ samples on using the engine will be added as it reaches a finished state
 currently the makefile only compiles for windows using g++
 the GLFW and GLEW library files are for 64 bit windows
 
-external libraries (not mine):
-glew
-glfw			https://github.com/glfw/glfw
-stb_image 		https://github.com/nothings/stb
+DEPENDENCIES
+
+GLEW
+GLFW3
+stb_image
+
+look in README files in lib and include folder for more information

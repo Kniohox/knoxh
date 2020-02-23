@@ -13,7 +13,7 @@ INCLUDE_FOLDERS:=-Iinclude -Isrc
 #lib folder
 LIB_FOLDER:=-Llib
 #libs to require
-LIB:=-lglew32 -lglfw3 -lopengl32 -lgdi32
+LIB:=-lglew -lglfw3 -lopengl32 -lgdi32
 
 #cpp files to be compiled
 DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o shader.o
