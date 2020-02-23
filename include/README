@@ -1,5 +1,5 @@
-GLEW header should be in the "GL" folder and named "glew.h"
+GLEW header should be in a folder named "GL" and the file should be named "glew.h"
 
-GLFW3 header should be in the "GLFW" folder and named "glfw3.h"
+GLFW3 header should be in a folder named "GLFW" and the file should be named "glfw3.h"
 
-stb_image header should be in the "stb" folder and named "stb_image.h"
+stb_image header should be in a folder named "stb" and the file should be named "stb_image.h"
