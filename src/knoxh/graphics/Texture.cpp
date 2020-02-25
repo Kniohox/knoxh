@@ -18,21 +18,31 @@ namespace knoxh
 		glDeleteTextures(1, &m_id);
 	}
 
-	Texture::Texture(char* pixels, const unsigned short width, const unsigned short heigth)
+	Texture::Texture(unsigned char* pixels, int width, int height, int components)
 	{
-
+		init(pixels, width, height, components);
 	}
 
-	Texture::Texture(ImageData image)
+	Texture::Texture(std::string path)
 	{
-		if (image.data == nullptr)
+		int width, height, components;
+		unsigned char* pixels;
+
+		loadImage(path, pixels, width, height, components);
+		init(pixels, width, height, components);
+	}
+	void Texture::init(unsigned char* pixels, int width, int height, int components)
+	{
+		if (pixels == nullptr)
 		{
 			return;
 		}
+
 		glGenTextures(1, &m_id);
 		int imageType;
 		int dataType;
-		switch(image.components)
+
+		switch(components)
 		{
 		case 1:
 			imageType = GL_RED;
@@ -54,9 +64,9 @@ namespace knoxh
 
 		glBindTexture(GL_TEXTURE_2D, m_id);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, dataType, image.width, image.height, 0, imageType, GL_UNSIGNED_BYTE, image.data);
+		glTexImage2D(GL_TEXTURE_2D, 0, dataType, width, height, 0, imageType, GL_UNSIGNED_BYTE, pixels);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-		stbi_image_free(image.data);
+		stbi_image_free(pixels);
 	}
 }

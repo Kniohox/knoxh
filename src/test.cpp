@@ -44,7 +44,8 @@ int loop();
 int cleanup();
 
 knoxh::Window* window;
-knoxh::Shader* shaderTest;
+knoxh::Shader* shader;
+knoxh::Texture* texture;
 
 int main()
 {
@@ -92,8 +93,10 @@ int init()
 	glEnable              ( GL_DEBUG_OUTPUT );
 	glDebugMessageCallback( MessageCallback, 0 );
 
-	shaderTest = new BasicShader();
-	shaderTest->init();
+	shader = new BasicShader();
+	shader->init();
+
+	texture = new knoxh::Texture("res/coin.png");
 
 	return 0;
 }
@@ -112,7 +115,8 @@ int loop()
 
 int cleanup()
 {
-	delete shaderTest;
+	delete texture;
+	delete shader;
 
 	delete window;
 	knoxh::Window::terminateWindows();

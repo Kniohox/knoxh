@@ -1,6 +1,6 @@
 #pragma once
 
-#include <knoxh/util/funclib.h>
+#include <string>
 
 namespace knoxh
 {
@@ -8,9 +8,10 @@ namespace knoxh
 	{
 	private:
 		unsigned int m_id;
+		void init(unsigned char* pixels, int width, int height, int components);
 	public:
 		virtual ~Texture();
-		Texture(char* pixels, const unsigned short width, const unsigned short height);
-		Texture(ImageData image);
+		Texture(unsigned char* pixels, int width, int height, int components);
+		Texture(std::string path);
 	};
 }

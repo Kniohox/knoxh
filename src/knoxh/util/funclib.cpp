@@ -31,23 +31,22 @@ namespace knoxh
 		return "";
 	}
 
-	ImageData loadImage(std::string path)
+	void loadImage(std::string path, unsigned char*& data, int& w, int& h, int& components)
 	{
-
-		ImageData image;
 
 		std::cout << "Loading image at \"" << path << "\"" << std::endl;
 
 		if (!std::filesystem::exists(std::filesystem::status(path)))
 		{
 			std::cout << "\\-Failed to load image\n\t->Error loading image: file does not exist" << std::endl;
-			return image;
+			data = nullptr;
+			return;
 		}
 
 		stbi_set_flip_vertically_on_load(true);
-		image.data = stbi_load(path.c_str(), &image.width, &image.height, &image.components, 0);
+		data = stbi_load(path.c_str(), &w, &h, &components, 0);
 
-		if (image.data != nullptr)
+		if (data != nullptr)
 		{
 			std::cout << "\\-Successfully loaded image" << std::endl;
 		}
@@ -59,7 +58,5 @@ namespace knoxh
 		{
 			std::cout << "\t->Error loading image: " << stbi_failure_reason() << std::endl;
 		};
-
-		return image;
 	}
 }
