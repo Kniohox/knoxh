@@ -44,8 +44,10 @@ namespace knoxh
 
 	Shader::~Shader()
 	{
-		glUseProgram(0);
-		glDeleteProgram(m_programID);
+		if (m_programID != 0)
+		{
+			destroy();
+		}
 	}
 
 	Shader::Shader(std::string vertPath, std::string fragPath)
@@ -83,5 +85,13 @@ namespace knoxh
 	void Shader::unbind()
 	{
 		glUseProgram(0);
+	}
+
+	void Shader::destroy()
+	{
+		std::cout << "Deleting shader with program id " << m_programID << std::endl;
+		glUseProgram(0);
+		glDeleteProgram(m_programID);
+		m_programID = 0;
 	}
 }

@@ -36,6 +36,11 @@ namespace knoxh
 		//self explanitory
 	public:
 
+		void destroy();
+		/*
+		deletes glfw window
+		*/
+
 		static bool init();
 		/*
 		attaches an error function to glfw

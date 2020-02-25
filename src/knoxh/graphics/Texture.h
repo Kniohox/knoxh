@@ -13,5 +13,6 @@ namespace knoxh
 		virtual ~Texture();
 		Texture(unsigned char* pixels, int width, int height, int components);
 		Texture(std::string path);
+		virtual void destroy();
 	};
 }

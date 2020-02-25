@@ -75,5 +75,10 @@ namespace knoxh
 		/*
 		unbinds the current shader program
 		*/
+
+		void destroy();
+		/*
+		deletes openGL shader
+		*/
 	};
 }

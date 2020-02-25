@@ -49,8 +49,10 @@ namespace knoxh
 	//deconstruction
 	Window::~Window()
 	{
-		std::cout << "Deleting Window \"" << m_title << "\" at " << this << std::endl;
-		glfwDestroyWindow(m_window);
+		if (m_window != nullptr)
+		{
+			destroy();
+		}
 	}
 
 	//constructor
@@ -150,5 +152,12 @@ namespace knoxh
 	void Window::shouldClose(const int value)
 	{
 		glfwSetWindowShouldClose(m_window, value);
+	}
+
+	void Window::destroy()
+	{
+		std::cout << "Deleting window \"" << m_title << "\" at " << m_window << std::endl;
+		glfwDestroyWindow(m_window);
+		m_window = nullptr;
 	}
 }

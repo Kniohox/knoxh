@@ -1,3 +1,8 @@
+#include <knoxh/graphics/texture.h>
+#include <knoxh/util/funclib.h>
+
+#include <iostream>
+
 #include <stb/stb_image.h>
 
 #ifndef GLEW_STATIC
@@ -5,17 +10,14 @@
 #endif
 #include <GL/glew.h>
 
-#include <knoxh/graphics/texture.h>
-#include <knoxh/util/funclib.h>
-
-#include <iostream>
-
 namespace knoxh
 {
 	Texture::~Texture()
 	{
-		std::cout << "Deleting texture at " << this << std::endl;
-		glDeleteTextures(1, &m_id);
+		if (m_id != 0)
+		{
+			destroy();
+		}
 	}
 
 	Texture::Texture(unsigned char* pixels, int width, int height, int components)
@@ -68,5 +70,12 @@ namespace knoxh
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		stbi_image_free(pixels);
+	}
+
+	void Texture::destroy()
+	{
+		std::cout << "Deleting texture with id " << m_id << std::endl;
+		glDeleteTextures(1, &m_id);
+		m_id = 0;
 	}
 }

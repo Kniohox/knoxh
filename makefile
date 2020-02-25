@@ -15,12 +15,18 @@ LIB_FOLDER:=-Llib
 #libs to require
 LIB:=-lglew -lglfw3 -lopengl32 -lgdi32
 
+#core engine
+C_ENGINE_B:=window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o shader.o mesh.o
+C_ENGINE_H:=window.h funclib.h engine.h registry.h queue.h texture.h voidregistry.h shader.h mesh.h
+
+#test project
+C_GAME_B:=test.o basicshader.o
+C_GAME_H:=basicshader.h
+
 #cpp files to be compiled
-DEPENDENCIES:=test.o window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o shader.o basicshader.o
+DEPENDENCIES:=${C_ENGINE_B} ${C_GAME_B}
 #headers to be added as dependencies so changes to them cause the build to become outdated
-HEADERS:=window.h funclib.h engine.h registry.h queue.h texture.h voidregistry.h shader.h basicshader.h
-
-
+HEADERS:=${C_ENGINE_H} ${C_GAME_H}
 
 #each folder containing files needs to be here
 VPATH=build:src:src/knoxh/core:src/knoxh/util:src/knoxh/graphics
