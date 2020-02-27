@@ -16,6 +16,7 @@ namespace knoxh
 		id = glCreateShader(type);
 		glShaderSource(id, 1, &code, nullptr);
 		glCompileShader(id);
+		#ifdef DEBUG
 		int compileStatus;
 		glGetShaderiv(id, GL_COMPILE_STATUS, &compileStatus);
 		if (compileStatus == GL_FALSE)
@@ -25,6 +26,7 @@ namespace knoxh
 			fprintf(stderr, "Could not compile shader\n%s", infoLog);
 			delete[] infoLog;
 		}
+		#endif
 	}
 
 	void Shader::bindAttrib(unsigned int index, const char* name)
@@ -89,7 +91,9 @@ namespace knoxh
 
 	void Shader::destroy()
 	{
+		#ifdef DEBUG
 		std::cout << "Deleting shader with program id " << m_programID << std::endl;
+		#endif
 		glUseProgram(0);
 		glDeleteProgram(m_programID);
 		m_programID = 0;

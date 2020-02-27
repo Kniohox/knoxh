@@ -74,7 +74,9 @@ namespace knoxh
 
 	void Texture::destroy()
 	{
+		#ifdef DEBUG
 		std::cout << "Deleting texture with id " << m_id << std::endl;
+		#endif
 		glDeleteTextures(1, &m_id);
 		m_id = 0;
 	}

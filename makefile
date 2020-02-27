@@ -7,6 +7,9 @@ BUILD_DIR:=build
 
 #compilation flags
 FLAGS:=-Werror -std=c++17
+#c++ preprocessor
+#use DEBUG for additional output, RELEASE for standard output
+CPPPRE:=-D DEBUG
 
 #include folders
 INCLUDE_FOLDERS:=-Iinclude -Isrc
@@ -16,8 +19,8 @@ LIB_FOLDER:=-Llib
 LIB:=-lglew -lglfw3 -lopengl32 -lgdi32
 
 #core engine
-C_ENGINE_B:=window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o shader.o mesh.o
-C_ENGINE_H:=window.h funclib.h engine.h registry.h queue.h texture.h voidregistry.h shader.h mesh.h
+C_ENGINE_B:=window.o funclib.o engine.o registry.o queue.o texture.o voidregistry.o shader.o legacymesh.o
+C_ENGINE_H:=window.h funclib.h engine.h registry.h queue.h texture.h voidregistry.h shader.h legacymesh.h
 
 #test project
 C_GAME_B:=test.o basicshader.o
@@ -57,4 +60,4 @@ clean:
 
 #compile cpp source files to binary
 %.o: %.cpp
-		$(foreach file,$?, g++ -c ${file} -o ${BUILD_DIR}/$@ ${FLAGS} ${INCLUDE_FOLDERS})
+		$(foreach file,$?, g++ -c ${file} -o ${BUILD_DIR}/$@ ${FLAGS} ${CPPPRE} ${INCLUDE_FOLDERS})

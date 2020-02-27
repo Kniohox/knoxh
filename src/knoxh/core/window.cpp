@@ -156,7 +156,9 @@ namespace knoxh
 
 	void Window::destroy()
 	{
+		#ifdef DEBUG
 		std::cout << "Deleting window \"" << m_title << "\" at " << m_window << std::endl;
+		#endif
 		glfwDestroyWindow(m_window);
 		m_window = nullptr;
 	}
